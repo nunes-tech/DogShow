@@ -14,11 +14,12 @@ import com.example.dogshow.adapter.PetsAdapter
 import com.example.dogshow.databinding.FragmentCaesBinding
 import com.example.dogshow.presentation.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CaesFragment : Fragment() {
 
-    private val adapter by lazy { PetsAdapter() }
+    @Inject lateinit var adapter: PetsAdapter
     private lateinit var mainViewModel: MainViewModel
 
     override fun onCreateView(
@@ -45,11 +46,11 @@ class CaesFragment : Fragment() {
                         val ePossivelRolarParaBaixo = recyclerView.canScrollVertically(1)
 
                         if (!ePossivelRolarParaBaixo) {
+                            mainViewModel.recuperarImagensDogs(10)
                             Toast.makeText(
                                 container?.context,
                                 "Carregando mais imagens...",
                                 Toast.LENGTH_SHORT).show()
-                            mainViewModel.recuperarImagensDogs(10)
                         }
                     }
                 }

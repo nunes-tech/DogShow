@@ -14,11 +14,6 @@ class PetsAdapter : Adapter<PetsAdapter.MyViewHolder>() {
     var lista = listOf<ImagensPets>()
     lateinit var binding : RecyclerItemBinding
 
-    /*fun atualizarListaImagensPet(l : List<ImagemPet>){
-        this.lista = l
-        notifyDataSetChanged()
-    }*/
-
     fun atualizarListaImagensPet(l : List<ImagensPets>){
         this.lista += l
         notifyDataSetChanged()

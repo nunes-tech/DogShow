@@ -5,6 +5,6 @@ Clean + MVVM
 *** Injeção de dependencias: 
 Dagger Hilt
 *** Tecnologias: 
-ViewModel, Livedata, Retrofit.
+ViewModel, Livedata, Retrofit, Picasso, GsonConverter
 *** Compenentes:
 RecyclerView, Menu

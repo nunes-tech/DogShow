@@ -30,9 +30,9 @@ class GatosFragment : Fragment() {
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
         val binding = FragmentGatosBinding.inflate( inflater, container, false)
 
+        mainViewModel.recuperarImagensCats(10)
         binding.rvGatos.adapter = adapter
         binding.rvGatos.layoutManager = GridLayoutManager(container?.context, 2)
-        mainViewModel.recuperarImagensCats(10)
 
         mainViewModel.listaImagensCats.observe(viewLifecycleOwner) { listImagesPet ->
             adapter.atualizarListaImagensPet(listImagesPet)

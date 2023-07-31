@@ -19,7 +19,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class GatosFragment : Fragment() {
 
-    @Inject lateinit var adapter: PetsAdapter
+    private var adapter: PetsAdapter? = null
     private lateinit var mainViewModel: MainViewModel
 
     override fun onCreateView(
@@ -28,6 +28,7 @@ class GatosFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        adapter = PetsAdapter()
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
         val binding = FragmentGatosBinding.inflate( inflater, container, false)
 
@@ -36,7 +37,7 @@ class GatosFragment : Fragment() {
         mainViewModel.recuperarImagensCats(10)
 
         mainViewModel.listaImagensCats.observe(viewLifecycleOwner) { listImagesPet ->
-            adapter.atualizarListaImagensPet(listImagesPet)
+            adapter?.atualizarListaImagensPet(listImagesPet)
         }
 
         binding.rvGatos.addOnScrollListener(
@@ -57,5 +58,10 @@ class GatosFragment : Fragment() {
             )
 
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        adapter = null
     }
 }

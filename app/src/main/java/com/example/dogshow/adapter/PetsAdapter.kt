@@ -11,8 +11,8 @@ import com.squareup.picasso.Picasso
 
 class PetsAdapter : Adapter<PetsAdapter.MyViewHolder>() {
 
-    var lista = listOf<ImagensPets>()
-    lateinit var binding : RecyclerItemBinding
+    private var lista = listOf<ImagensPets>()
+    private lateinit var binding : RecyclerItemBinding
 
     fun atualizarListaImagensPet(l : List<ImagensPets>){
         this.lista += l

@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate( layoutInflater )
     }
 
+    private lateinit var menu: Menu
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,13 +44,19 @@ class MainActivity : AppCompatActivity() {
                         R.menu.menu_principal,
                         menu
                     )
+
                 }
 
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                    when(menuItem.itemId) {
-                        R.id.itemGatos -> abrirFragment( GatosFragment() )
 
-                        R.id.itemCaes -> abrirFragment( CaesFragment() )
+                    when(menuItem.itemId) {
+                        R.id.itemGatos -> {
+                            abrirFragment( GatosFragment() )
+                        }
+
+                        R.id.itemCaes -> {
+                            abrirFragment(CaesFragment())
+                        }
                     }
                     return true
                 }

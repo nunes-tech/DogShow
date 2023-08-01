@@ -12,15 +12,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dogshow.adapter.PetsAdapter
 import com.example.dogshow.databinding.FragmentCaesBinding
-import com.example.dogshow.presentation.viewmodel.MainViewModel
+import com.example.dogshow.presentation.viewmodel.CaesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class CaesFragment : Fragment() {
 
-    private var adapter: PetsAdapter? = null
-    private lateinit var mainViewModel: MainViewModel
+    @Inject lateinit var adapter: PetsAdapter
+    private lateinit var caesViewModel: CaesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,16 +28,15 @@ class CaesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        adapter = PetsAdapter()
-        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        caesViewModel = ViewModelProvider(this)[CaesViewModel::class.java]
         val binding = FragmentCaesBinding.inflate( inflater, container, false)
 
         binding.rvCaes.adapter = adapter
         binding.rvCaes.layoutManager = GridLayoutManager(container?.context, 2)
-        mainViewModel.recuperarImagensDogs(10)
+        caesViewModel.recuperarImagensDogs(10)
 
-        mainViewModel.listaImagensDogs.observe(viewLifecycleOwner) { listImagesPet ->
-            adapter?.atualizarListaImagensPet(listImagesPet)
+        caesViewModel.listaImagensDogs.observe(viewLifecycleOwner) { listImagesPet ->
+            adapter.atualizarListaImagensPet(listImagesPet)
         }
 
         binding.rvCaes.addOnScrollListener(
@@ -47,7 +46,7 @@ class CaesFragment : Fragment() {
                         val ePossivelRolarParaBaixo = recyclerView.canScrollVertically(1)
 
                         if (!ePossivelRolarParaBaixo) {
-                            mainViewModel.recuperarImagensDogs(10)
+                            caesViewModel.recuperarImagensDogs(10)
                             Toast.makeText(
                                 container?.context,
                                 "Carregando mais imagens...",
@@ -60,8 +59,4 @@ class CaesFragment : Fragment() {
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        adapter = null
-    }
 }

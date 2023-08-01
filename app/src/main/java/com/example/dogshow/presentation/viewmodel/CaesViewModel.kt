@@ -14,31 +14,19 @@ import javax.inject.Inject
 import javax.inject.Named
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
-    @Named("theDog") private val getImagesDogUseCase: GetImagensDogUseCase,
-    @Named("theCat") private val getImagesCatUseCase: GetImagensCatUseCase
+class CaesViewModel @Inject constructor(
+    @Named("theDog") private val getImagesDogUseCase: GetImagensDogUseCase
 ) : ViewModel() {
 
     private val _listaImagensDogs = MutableLiveData<List<ImagensPets>>()
     val listaImagensDogs:LiveData<List<ImagensPets>>
         get() = _listaImagensDogs
 
-    private val _listaImagensCats = MutableLiveData<List<ImagensPets>>()
-    val listaImagensCats:LiveData<List<ImagensPets>>
-        get() = _listaImagensCats
-
     @SuppressLint("SuspiciousIndentation")
     fun recuperarImagensDogs(limite : Int){
         viewModelScope.launch {
           val listaImagens =  getImagesDogUseCase(limite)
             _listaImagensDogs.postValue( listaImagens )
-        }
-    }
-
-    fun recuperarImagensCats(limite : Int){
-        viewModelScope.launch {
-            val listaImagens =  getImagesCatUseCase(limite)
-            _listaImagensCats.postValue( listaImagens )
         }
     }
 
